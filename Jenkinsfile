@@ -4,22 +4,11 @@ pipeline {
     
 
     stages {
-                stage('Checkout'){
-            steps{
-                echo "------------>Checkout<------------"
-                checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], 
-                gitTool: 'Git_Centos', submoduleCfg: [], userRemoteConfigs: [[credentialsId:'GitHub_jonathanavalencia', 
-                url:'https://github.com/jonathanavalencia/cparking.git']]])
-            }
-        }
-s
-
-
         stage ('Unit Tests') {
             steps{
                 echo "------------>Unit tests<------------"
-                sh 'gradle test'
-                junit '**/jacoco/test-results/*.xml'
+                sh './gradlew test'
+                junit '**test-results/*.xml'
                 jacoco classPattern: '**/build/classes/java', execPattern: '**/jacoco/test.exec', sourcePattern: '**/src/main/java'
             }
         }
