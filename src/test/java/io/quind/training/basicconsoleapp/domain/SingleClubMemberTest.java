@@ -28,5 +28,20 @@ class SingleClubMemberTest {
             "3, S, Name3, 200, 3"
     })
     void testGetSet(int memberID, char memberType, String name, double fees, int club) {
+        SingleClubMember expectedSingleClubMember = new SingleClubMember(memberID, memberType, name, fees, club);
+
+        SingleClubMember aSingleClubMember = new SingleClubMember(0, 'N', "EMPTY", 0, 0);
+        aSingleClubMember.setMemberID(memberID);
+        aSingleClubMember.setMemberType(memberType);
+        aSingleClubMember.setName(name);
+        aSingleClubMember.setFees(fees);
+        aSingleClubMember.setClub(club);
+
+        assertEquals(expectedSingleClubMember.getMemberID(), aSingleClubMember.getMemberID());
+        assertEquals(expectedSingleClubMember.getMemberType(), aSingleClubMember.getMemberType());
+        assertEquals(expectedSingleClubMember.getName(), aSingleClubMember.getName());
+        assertEquals(expectedSingleClubMember.getFees(), aSingleClubMember.getFees());
+        assertEquals(expectedSingleClubMember.getClub(), aSingleClubMember.getClub());
+
     }
 }
