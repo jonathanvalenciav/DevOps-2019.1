@@ -16,7 +16,11 @@ class MultiClubMemberTest {
             "3, M, Name3, 200, 3000"
     })
     void testToString(int memberID, char memberType, String name, double fees, int membershipPoints) {
+        MultiClubMember multiClubMember = new MultiClubMember(memberID, memberType, name, fees, membershipPoints);
+        String expected = String.format("%s, %s, %s, %.1f", memberID, memberType, name, fees) + ", " + membershipPoints;
+        assertEquals(expected, multiClubMember.toString());
     }
+
     @DisplayName("test getter and setter")
     @ParameterizedTest(name = "{index} => memberID = {0}, memberType = {1}, name = {2}, fees = {3}, club = {4}")
     @CsvSource({
