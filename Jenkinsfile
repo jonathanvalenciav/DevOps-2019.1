@@ -5,10 +5,12 @@ pipeline {
 
     stages {
         stage ('Unit Tests') {
-            echo '------------>Unit Test<------------'
-            sh './gradlew --stacktrace test'
-            junit '**/build/test-results/*.xml'
-            jacoco classPattern: '**/build/classes/java', execPattern: '**/jacoco/test.exec', sourcePattern: '**/src/main/java'
+           steps {
+                echo '------------>Unit Test<------------'
+                sh './gradlew --stacktrace test'
+                junit '**/build/test-results/*.xml'
+                jacoco classPattern: '**/build/classes/java', execPattern: '**/jacoco/test.exec', sourcePattern: '**/src/main/java'
+           }
         }   
 
         stage ('SonarCloud Static Code Analysis') {
