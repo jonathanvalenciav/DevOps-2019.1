@@ -7,7 +7,7 @@ pipeline {
         stage ('Unit Tests') {
            steps {
                 echo '------------> Unit Test <------------'
-                sh './gradlew --stacktrace test'
+                sh './gradlew clean test'
            }
         }   
 
