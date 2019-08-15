@@ -14,10 +14,12 @@ pipeline {
         }
 
         stage ('SonarCloud Static Code Analysis') {
-            //Inserte su declaracion aqui
+             withSonarQubeEnv('sonarQube') { // Will pick the global server connection you have configured
+                sh './gradlew sonarqube'
+             }
         }
 
-        stage ('SonarCloud Quality Gate') {
+        stage ('SonarCloud Quality Gate') { 
             steps {
                 echo "------------>Static code analysis<------------"
                 withSonarQubeEnv('sonarQube') {
