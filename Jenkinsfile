@@ -39,19 +39,3 @@ pipeline {
         }
     }
 }
-
-post {
-    always {
-        echo "------------> Reporting <------------"
-    }
-    success {
-        echo 'Reporting successful'
-    }
-
-    failure {
-        echo 'Reporting failed'
-    }
-    unstable {
-        echo 'The pipeline run was marked as unstable'
-    }
-}
