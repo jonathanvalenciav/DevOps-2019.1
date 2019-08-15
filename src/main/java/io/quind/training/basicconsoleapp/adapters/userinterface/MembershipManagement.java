@@ -102,7 +102,7 @@ public class MembershipManagement {
             member = new MultiClubMember(memberID, 'M', name, fees, 100);
             memberList.add(member);
             memberString = member.toString();
-            System.out.println("\nSTATUS: Multi Club Member added\n".toString());
+            System.out.println("\nSTATUS: Multi Club Member added\n");
         }
         return memberString;
     }
@@ -137,6 +137,6 @@ public class MembershipManagement {
                 return;
             }
         }
-        System.out.println("\nSTATUS: The member does not exist\n".toString());
+        System.out.println("\nSTATUS: The member does not exist\n");
     }
 }
