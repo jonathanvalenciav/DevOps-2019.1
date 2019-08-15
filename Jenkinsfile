@@ -14,9 +14,12 @@ pipeline {
         }
 
         stage ('SonarCloud Static Code Analysis') {
-             withSonarQubeEnv('sonarQube') { // Will pick the global server connection you have configured
-                sh './gradlew sonarqube'
-             }
+             steps{
+                echo '------------>Static code analysis<------------'
+                withSonarQubeEnv('sonarQube') {
+                    sh "${tool name: 'SonarScanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'}/bin/sonar-scanner"
+                }
+            }
         }
 
         stage ('SonarCloud Quality Gate') { 
