@@ -4,22 +4,18 @@ pipeline {
     
 
     stages {
-           stage ('Unit Tests') {
-                parallel {
-                    stage('Test'){
-                        steps {
-                            echo '------------>test<------------'
-                            sh './gradlew --stacktrace test'
-                        }
-                    }
-                }
-            }   
+        stage ('Unit Tests') {
+            echo '------------>Unit Test<------------'
+            sh './gradlew --stacktrace test'
+            junit '**/build/test-results/*.xml'
+            jacoco classPattern: '**/build/classes/java', execPattern: '**/jacoco/test.exec', sourcePattern: '**/src/main/java'
+        }   
 
         stage ('SonarCloud Static Code Analysis') {
              steps{
                 echo '------------>Static code analysis<------------'
                 withSonarQubeEnv('sonarQube') {
-                    sh "${tool name: 'SonarScanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'}/bin/sonar-scanner"
+                    sh './gradlew sonarqube'
                 }
             }
         }
