@@ -6,14 +6,14 @@ pipeline {
     stages {
         stage ('Unit Tests') {
            steps {
-                echo '------------>Unit Test<------------'
+                echo '------------> Unit Test <------------'
                 sh './gradlew --stacktrace test'
            }
         }   
 
         stage ('SonarCloud Static Code Analysis') {
              steps{
-                echo '------------>Static code analysis<------------'
+                echo '------------> Static code analysis <------------'
                 withSonarQubeEnv('sonarQube') {
                     sh './gradlew sonarqube'
                 }
@@ -22,7 +22,7 @@ pipeline {
 
         stage ('SonarCloud Quality Gate') { 
             steps {
-                echo "------------>Static code analysis<------------"
+                echo "------------>Static code analysis <------------"
                 withSonarQubeEnv('sonarQube') {
                     timeout(time: 5, unit: 'MINUTES') {
                         waitForQualityGate abortPipeline: true
@@ -37,5 +37,21 @@ pipeline {
                 archiveArtifacts( artifacts: 'build/libs/*.jar', fingerprint: true)
             }
         }
+    }
+}
+
+post {
+    always {
+        echo "------------> Reporting <------------"
+    }
+    success {
+        echo 'Reporting successful'
+    }
+
+    failure {
+        echo 'Reporting failed'
+    }
+    unstable {
+        echo 'The pipeline run was marked as unstable'
     }
 }
